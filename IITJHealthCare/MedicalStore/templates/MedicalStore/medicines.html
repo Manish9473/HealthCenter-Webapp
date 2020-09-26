@@ -1,0 +1,65 @@
+{% extends "MedicalStore/layout.html" %}
+
+{% block title %}
+IITJ Health Centre
+{% endblock%}
+
+{% block bodytag %}
+
+  {% load static %}
+  <body background="{% static 'HealthCentre/images/i6.jpg' %}" style="background-size: auto auto;">
+
+{% endblock %}
+
+{% block body %}
+
+    <br>
+
+    <h1 style="text-align:center;color:black;" class = "display-4">
+      Medical Store
+    </h1>
+
+    <li class="dropdown-divider" style="margin-left:25%;margin-right:25%;color:yellow;border-color:black"></li>
+
+    <br>
+    <br>
+
+    {% for medicine in medicines %}
+        <div class="row container"style="margin: 0 auto;" >
+            <div class="col-sm-8" >
+                <div class="card" style = "background:rgba(0,0,0,1.0);color:white;padding-bottom:17%">
+                    <div class="card-body">
+
+                        <h3 class="card-title"> {{ medicine.name }}</h3>
+                        <li class="dropdown-divider"></li>
+                        <p class="card-text"><pre style="color:white">Company             : {{ medicine.company }}<br>Manufacturing Date  : {{ medicine.manufacturedDate }}<br>Expiry Date         : {{ medicine.expiryDate }}<br>Quantity Remaining  : {{ medicine.quantity }}</pre></p>
+                        <h2 class="card-link lead" style="color:yellow;margin-bottom:0;">Price : &#8377;{{ medicine.price }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4" style = "background:rgba(0,0,0,1.0)">
+              <div class="container"style="padding:5%" >
+                            {% with 'MedicalStore/images/'|add:medicine.photoId as image_static %}
+                                  <img style="display: block;"src="{% static image_static %}" class="rounded mx-auto d-block img-fluid" alt="Responsive image">
+                            {% endwith %}
+              </div>
+
+            </div>
+
+        </div>
+        <li class="dropdown-divider" style="margin-left:25%;margin-right:25%;margin-top:1.5%;margin-bottom:0px"></li>
+        <br>
+
+
+
+    {% empty %}
+
+
+        <h4 style="text-align:center;color:black" >
+            Sorry! No medicines matching your query are available right now. Please try again later!
+        </h4>
+
+    {% endfor %}
+
+
+{% endblock %}
